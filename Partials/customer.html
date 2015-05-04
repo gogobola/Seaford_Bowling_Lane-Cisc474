@@ -1,0 +1,273 @@
+
+<div class="container">
+	
+	<div class="header">
+		<H2> {{title}} </H2>
+	</div>
+	
+	<div ng-show="msgBox" ng-bind="msgBox">
+	
+	</div>
+	
+	<div class="subMenu">
+		
+		<div class="input-group">
+			<span class="input-group-addon"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> </span> 
+			<input type=text id="search" ng-model="searchText" ng-change="searchCustomer()"  placeholder="Search customers by {{searchBy}}"  class="form-control span5"> 
+			<span class="input-group-addon"> 
+				<SELECT id="searchBy" ng-model="searchBy" ng-options="option.attr as option.option for option in customerSearchByOptions">
+					
+				</SELECT>
+			</span>
+		</div>
+		
+		<button class="btn btn-primary btn-add" ng-click="newCustomer()" > <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Customer </button>
+		
+	</div>
+	
+	<table class="table table-bordered table-striped table-hover table-shadowed">
+		<tr bgcolor="#bbf" class="titleRow">
+			<th width="27%">
+				Name
+			</th>
+			
+			<th width="20%">
+				City
+			</th>
+			
+			<th width="5%">
+				State
+			</th>
+			
+			<th width="12%">
+				Phone
+			</th>
+			
+			<th width="27%">
+				Email
+			</th>
+			
+			<th width="9%" COLSPAN=3>
+				Options
+			</th>
+			
+		</tr>
+		
+		<tr ng-repeat="customer in customers " >
+            <td ng-bind="customer.name">
+				{{customer.name}}
+			</td>
+			
+			<td>
+				{{customer.city}}
+			</td>
+			
+			<td>
+				{{customer.StateAbbr}}
+			</td>
+			
+			<td>
+				{{customer.phone}}
+			</td>
+			
+			<td>
+				{{customer.email}}
+			</td>
+			
+			<td>
+				<button class="btn btn-xs" ng-click="view(customer.idCustomer)" > <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </button> 
+			</td>
+			
+			<td>
+				<button class="btn btn-info btn-xs" ng-click="edit(customer.idCustomer)" >  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </button> 
+			</td>
+			
+			<td>
+				<button class="btn btn-danger btn-xs" ng-click="del(customer.idCustomer, customer.name)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>   </button> 
+			</td>
+			
+		</tr>
+		
+		<tr ng-hide="customers"> <td COLSPAN=6 align=center> <i> No customers </i> </td> </tr>
+	</table>
+	
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header viewTitle" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{title}} - {{selectedCustomer.Name}}</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+			<tr ng-repeat="(key, value) in selectedCustomer" > 
+				<td>
+					<b> {{key}}: </b>
+				</td>
+				
+				<td>
+					{{value}}
+				</td>
+			</tr>
+		</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="customerAddEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header addEditTitle">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title ">{{addEditTitle}}</h4>
+      </div>
+      <div class="modal-body">
+        <!-- ng-if="selectedCustomer"    ng-repeat="(key, value) in selectedCustomer" -->
+		
+		<div ng-show="selectedCustomer" class="form-group">
+			<table class="table" >
+				<tr > 
+					<td width="100%" COLSPAN=3>
+						<label> Name </label>
+						<input type=text id="name" ng-value="selectedCustomer.name" ng-model="selectedCustomer.name" class="form-control" placeholder="Name">
+					</td>
+				</tr>
+				
+				<tr > 
+					<td width="100%" COLSPAN=3>
+						<label> Address </label>
+						<input type=text ng-value="selectedCustomer.address" ng-model="selectedCustomer.address" class="form-control" placeholder="Address">
+					</td>
+				</tr>
+				
+				<tr > 
+					<td>
+						<label> City </label>
+						<input type=text ng-value="selectedCustomer.city" ng-model="selectedCustomer.city" class="form-control" placeholder="City">
+					</td>
+					
+					<td>
+						<label> State </label>
+						<select id="state" class="form-control" ng-model="selectedCustomer.id_state" ng-options="state.idState as state.name for state in states" >
+							<!--<option ng-repeat="state in states" ng-value="state.idState"> {{state.name}} -->
+						</select>
+					</td>
+					
+					<td>
+						<label> Zip-code </label>
+						<input type=text ng-value="selectedCustomer.zip" ng-model="selectedCustomer.zip" class="form-control" placeholder="Zip-code">
+					</td>
+				</tr>
+				
+				<tr > 
+					<td>
+						<label> Phone </label>
+						<input type=tel ng-value="selectedCustomer.phone" ng-model="selectedCustomer.phone" class="form-control" placeholder="### ### ####">
+					</td>
+					
+					<td>
+						<label> Cellular </label>
+						<input type=tel ng-value="selectedCustomer.cell" ng-model="selectedCustomer.cell" class="form-control" placeholder="### ### ####">
+					</td>
+					
+					<td>
+						<label> Email </label>
+						<input type=email ng-value="selectedCustomer.email" ng-model="selectedCustomer.email" class="form-control" placeholder="example@test.com">
+					</td>
+						
+				</tr>
+				
+				
+			</table>
+		</div>
+		
+		
+		<div ng-hide="selectedCustomer">
+			<table class="table" >
+				<tr > 
+					<td width="100%" COLSPAN=3>
+						<label> Name </label>
+						<input id="name" type=text ng-model="selectedCustomer.name" class="form-control" placeholder="Name" required>
+					</td>
+				</tr>
+				
+				<tr > 
+					<td width="100%" COLSPAN=3>
+						<label> Address </label>
+						<input type=text ng-model="selectedCustomer.address" class="form-control" placeholder="Address">
+					</td>
+				</tr>
+				
+				<tr > 
+					<td>
+						<label> City </label>
+						<input type=text ng-model="selectedCustomer.city" class="form-control" placeholder="City">
+					</td>
+					
+					<td>
+						<label> State </label>
+						<select id="state" class="form-control" ng-model="selectedCustomer.id_state" ng-options="state.idState as state.name for state in states" required>
+						</select>
+					</td>
+					
+					<td>
+						<label> Zip-code </label>
+						<input type=text ng-model="selectedCustomer.zip" class="form-control" placeholder="Zip-code">
+					</td>
+				</tr>
+				
+				<tr > 
+					<td>
+						<label> Phone </label>
+						<input type=tel ng-model="selectedCustomer.phone" class="form-control" placeholder="### ### ####">
+					</td>
+					
+					<td>
+						<label> Cellular </label>
+						<input type=tel ng-model="selectedCustomer.cell" class="form-control" placeholder="### ### ####">
+					</td>
+					
+					<td>
+						<label> Email </label>
+						<input type=email ng-model="selectedCustomer.email" class="form-control" placeholder="example@test.com" required>
+					</td>
+						
+				</tr>
+				
+				
+			</table>
+		</div>
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" ng-click="addEdit()" class="btn btn-primary">{{addEditBtnText}}</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="customerDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header delTitle">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title mdeletion">{{title}} Deletion - {{delCustomerName}}</h4>
+      </div>
+      <div class="modal-body">
+		<p> This action will remove the customer <b> {{delCustomerName}} </b> from the database. Are you sure?
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" ng-click="remove()" class="btn btn-danger">Delete Customer</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
