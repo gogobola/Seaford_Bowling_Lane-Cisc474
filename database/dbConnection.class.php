@@ -17,7 +17,7 @@
             
         }
         
-         // ***** GETS *************
+        // ***** GETS *************
         
         public function getHost()
         {
@@ -345,6 +345,19 @@
             
         }
 		
+		public function getCustomerView($customer_id){
+            $query = "SELECT C.idCustomer as ID, C.name as Name, C.address as Address, C.city as City, S.Name as State, S.abbr as StateAbbr, C.phone as Phone, C.cell as Cellular, C.email as Email FROM customer C, state S 
+						WHERE ( (C.idCustomer = $customer_id) AND (C.id_state = S.idState) )";
+				
+			$statement = $this->conn->prepare($query);
+			$statement->execute();
+			$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+			header('HTTP/1.1 200 OK');
+			header('Content-Type: application/json');
+			echo json_encode($results);
+            
+        }
+		
 		public function getCustomerArray($customer_id){
             $query = "SELECT C.*, S.Name as State, S.abbr as StateAbbr FROM customer C, state S 
 						WHERE ( (C.idCustomer = $customer_id) AND (C.id_state = S.idState) )";
@@ -503,7 +516,20 @@
 		
 		//**************************** SEARCHES *************************************
 		
-		public function searchCustomer($name){
+		public function searchCustomerBy($term, $text){
+            $query = "SELECT C.*, S.Name as State, S.abbr as StateAbbr FROM customer C, state S 
+						WHERE ( (C.$term LIKE '%$text%') AND (C.id_state = S.idState) )";
+				
+			$statement = $this->conn->prepare($query);
+			$statement->execute();
+			$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+			header('HTTP/1.1 200 OK');
+			header('Content-Type: application/json');
+			echo json_encode($results);
+            
+        }
+		
+		public function searchCustomerByName($name){
             $query = "SELECT C.*, S.Name as State, S.abbr as StateAbbr FROM customer C, state S 
 						WHERE ( (C.name LIKE '%$name%') AND (C.id_state = S.idState) )";
 				
