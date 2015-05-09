@@ -1,0 +1,187 @@
+<div class="container">
+	
+	<div class="header">
+		<H2> {{title}} </H2>
+	</div>
+	
+	<div ng-show="msgBox" ng-bind="msgBox">
+	
+	</div>
+	
+	<div class="subMenu">
+		
+		<div class="input-group">
+			<span class="input-group-addon"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> </span> 
+			<input type=text id="search" ng-model="searchText" ng-change="searchBall()"  placeholder="Search balls by {{searchBy}}"  class="form-control span5"> 
+			<span class="input-group-addon"> 
+				<SELECT id="searchBy" ng-model="searchBy" ng-options="option.attr as option.option for option in ballSearchByOptions">
+					
+				</SELECT>
+			</span>
+		</div>
+		
+		<button class="btn btn-primary btn-add" ng-click="newBall()" > <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Ball </button>
+		
+	</div>
+	
+	<table class="table table-bordered table-striped table-hover table-shadowed">
+		<tr bgcolor="#bbf" class="titleRow">
+			<th width="27%">
+				Hand
+			</th>
+			
+			<th width="20%">
+				Conv
+			</th>
+			
+			<th width="5%">
+				Ft.
+			</th>
+			
+			<th width="12%">
+				Pin
+			</th>
+			
+			<th width="27%">
+				weight
+			</th>
+			
+			<th width="9%" COLSPAN=3>
+				Layout
+			</th>
+			<th width="27%">
+				Surface
+			</th>
+			
+			<th width="20%">
+				BH Position
+			</th>
+			
+			<th width="5%">
+				Size
+			</th>
+			<th width="12%">
+				Depth
+			</th>
+			
+			<th width="12%">
+				PAP Horizontal
+			</th>
+			
+			<th width="27%">
+				PAP UpDown
+			</th>
+			
+			<th width="9%" COLSPAN=3>
+				Offset Thumb
+			</th>
+			<th width="12%">
+				Thumb Style
+			</th>
+			
+			<th width="9%" COLSPAN=3>
+				Finger Style
+			</th>
+		</tr>
+		
+		<tr ng-repeat="ball in balls " >
+            <td ng-bind="ball.hand">
+				{{ball.hand}}
+			</td>
+			
+			<td>
+				{{ball.conv}}
+			</td>
+			
+			<td>
+				{{ball.ft}}
+			</td>
+			
+			<td>
+				{{ball.pin}}
+			</td>
+			
+			<td>
+				{{ball.weight}}
+			</td>
+			<td>
+				{{ball.layout}}
+			</td>
+			
+			<td>
+				{{ball.surface}}
+			</td>
+			
+			<td>
+				{{ball.bh_position}}
+			</td>
+			
+			<td>
+				{{ball.size}}
+			</td>
+			<td>
+				{{ball.depth}}
+			</td>
+			
+			<td>
+				{{ball.pap_horizontal}}
+			</td>
+			
+			<td>
+				{{ball.pap_updown}}
+			</td>
+			
+			<td>
+				{{ball.offset_thumb}}
+			</td>
+			<td>
+				{{ball.thumb_style}}
+			</td>
+			
+			<td>
+				{{ball.finger_style}}
+			</td>
+			<td>
+				<button class="btn btn-xs" ng-click="view(ball.idBall)" > <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </button> 
+			</td>
+			
+			<td>
+				<button class="btn btn-info btn-xs" ng-click="edit(ball.idBall)" >  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </button> 
+			</td>
+			<!--
+			<td>
+				<button class="btn btn-danger btn-xs" ng-click="del(ball.idBall)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>   </button> 
+			</td>
+			-->
+		</tr>
+		
+		<tr ng-hide="balls"> <td COLSPAN=6 align=center> <i> No balls </i> </td> </tr>
+	</table>
+	
+</div>
+
+<div class="model fade" id="BallModel" tabindex="-1" role="dialog" aria-labelledby="mymodelLabel" aria-hidden="true">  <div class="model-dialog">
+    <div class="model-content">
+      <div class="model-header viewTitle" >
+        <button type="button" class="close" data-dismiss="model" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="model-title">{{title}} - {{selectedBall.idBall}}</h4>
+      </div>
+      <div class="model-body">
+        <table class="table">
+			<tr ng-repeat="(key, value) in selectedBall" > 
+				<td>
+					<b> {{key}}: </b>
+				</td>
+				
+				<td>
+					{{value}}
+				</td>
+			</tr>
+		</table>
+      </div>
+      <div class="model-footer">
+        <button type="button" class="btn btn-default" data-dismiss="model">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
