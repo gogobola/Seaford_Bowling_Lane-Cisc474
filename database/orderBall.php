@@ -4,12 +4,6 @@
 	
 	$verb = $_SERVER['REQUEST_METHOD'];
 	$uri = $_SERVER['REQUEST_URI'];
-	//$url_parts = parse_url($uri);
-	//$path = $url_parts["path"];
-	//$parameters = $url_parts["query"];
-	//$prefix = "api";
-	//$ind = strpos($path, $prefix);
-	//$request = substr($path, $ind + strlen($prefix));
 	
 	if ($verb == "GET") {
       $function = $_GET['func'];
@@ -17,11 +11,11 @@
 	  $dbHandler = new BowlingConnection();
 	  
 		$dbHandler->connect();
-	//echo $function;
+	
 	  switch($function)
 	  {
-			case '"getAllCustomers"':
-				$dbHandler->getAllCustomers();
+			case '"getAllOrders"':
+				$dbHandler->getAllOrders();
 			break;
 			
 			case '"getCustomerView"':
@@ -29,20 +23,25 @@
 				$dbHandler->getCustomerView($id);
 			break;
 			
-			case '"getCustomer"':
+			case '"getOrder"':
 				$id = $_GET['id'];
-				$dbHandler->getCustomer($id);
+				$dbHandler->getOrder($id);
 			break;
 			
-			case '"getAllStates"':
-				$dbHandler->getAllStates();
+			case '"getAllBalls"':
+				$dbHandler->getAllBalls();
 			break;
 			
-			case '"searchCustomer"':
+			case '"getBall"':
+				$id = $_GET['id'];
+				$dbHandler->getBall($id);
+			break;
+			
+			case '"searchOrder"':
 				$text = $_GET['text'];
 				$term = $_GET['searchBy'];
 			
-				$dbHandler->searchCustomerBy($term, $text);
+				$dbHandler->searchOrderBy($term, $text);
 			break;
 			
 			default:

@@ -114,13 +114,214 @@ bowlingDatabase.prototype.getAllStates = function(scope, scopeVariable){
 		});
 		
 	};
-	
+
+
+bowlingDatabase.prototype.getState = function(scope, scopeVariable, id){
+    var dbHandler = new $.Deferred();
+    
+    $.ajax({
+           url: 'database/customer.php?func="getState"&id='+id,
+           type: "GET",
+           data: {"key":"value"},
+           success: function(data){
+           dbHandler.resolve(data);
+           
+           },
+           error: function(){
+           //$('body').html("Error happened");
+           return null;
+           }
+           });
+    
+    dbHandler.promise().done(function(data){
+                             
+                             scope[scopeVariable] = arguments[0];
+                             scope.$apply();
+                             
+                             });
+    
+};
+
+
+
+bowlingDatabase.prototype.getAllBalls = function(scope, scopeVariable){
+    var dbHandler = new $.Deferred();
+    
+    $.ajax({
+           url: 'database/orderBall.php?func="getAllBalls"',
+           type: "GET",
+           data: {"key":"value"},
+           success: function(data){
+           dbHandler.resolve(data);
+           
+           },
+           error: function(){
+           //$('body').html("Error happened");
+           return null;
+           }
+           });
+    
+    dbHandler.promise().done(function(data){
+                             
+                             scope[scopeVariable] = arguments[0];
+                             scope.$apply();
+                             
+                             });
+    
+};
+
+
+
+
+
+bowlingDatabase.prototype.getBall = function(scope, scopeVariable, id){
+    var dbHandler = new $.Deferred();
+    
+    $.ajax({
+           url: 'database/orderBall.php?func="getBall"&id='+id,
+           type: "GET",
+           data: {"key":"value"},
+           success: function(data){
+           dbHandler.resolve(data);
+           
+           },
+           error: function(){
+           //$('body').html("Error happened");
+           return null;
+           }
+           });
+    
+    dbHandler.promise().done(function(data){
+                             
+                             scope[scopeVariable] = arguments[0];
+                             scope.$apply();
+                             
+                             });
+    
+};
+
+
+
+bowlingDatabase.prototype.getAllOrders = function(scope, scopeVariable){
+    var dbHandler = new $.Deferred();
+    
+    $.ajax({
+           url: 'database/orderBall.php?func="getAllOrders"',
+           type: "GET",
+           data: {"key":"value"},
+           success: function(data){
+           dbHandler.resolve(data);
+           
+           },
+           error: function(){
+           //$('body').html("Error happened");
+           return null;
+           }
+           });
+    
+    dbHandler.promise().done(function(data){
+                             
+                             scope[scopeVariable] = arguments[0];
+                             scope.$apply();
+                             
+                             });
+    
+};
+
+
+
+bowlingDatabase.prototype.getOrder = function(scope, scopeVariable, id){
+    var dbHandler = new $.Deferred();
+    
+    $.ajax({
+           url: 'database/orderBall.php?func="getOrder"&id='+id,
+           type: "GET",
+           data: {"key":"value"},
+           success: function(data){
+           dbHandler.resolve(data);
+           
+           },
+           error: function(){
+           //$('body').html("Error happened");
+           return null;
+           }
+           });
+    
+    dbHandler.promise().done(function(data){
+                             
+                             scope[scopeVariable] = arguments[0];
+                             scope.$apply();
+                             
+                             });
+    
+};
+
+
+
+bowlingDatabase.prototype.getUser = function(scope, scopeVariable, id){
+    var dbHandler = new $.Deferred();
+    
+    $.ajax({
+           url: 'database/login.php?func="getUser"&id='+id,
+           type: "GET",
+           data: {"key":"value"},
+           success: function(data){
+           dbHandler.resolve(data);
+           
+           },
+           error: function(){
+           //$('body').html("Error happened");
+           return null;
+           }
+           });
+    
+    dbHandler.promise().done(function(data){
+                             
+                             scope[scopeVariable] = arguments[0];
+                             scope.$apply();
+                             
+                             });
+    
+};
+
+
+
+bowlingDatabase.prototype.login = function(scope, scopeVariable, user, pass){
+    var dbHandler = new $.Deferred();
+    
+    $.ajax({
+           url: 'database/login.php?func="login"&user='+id+'&pass='+pass,
+           type: "GET",
+           data: {"key":"value"},
+           success: function(data){
+           dbHandler.resolve(data);
+           
+           },
+           error: function(){
+           //$('body').html("Error happened");
+           return null;
+           }
+           });
+    
+    dbHandler.promise().done(function(data){
+                             
+                             scope[scopeVariable] = arguments[0];
+                             scope.$apply();
+                             
+                             });
+    
+};
+
+
+
+
+//****************************************************************************************
 	
 bowlingDatabase.prototype.insert = function(scope, scopeVariable, table){
 		var dbHandler = new $.Deferred();
 		
 		$.ajax({
-          url: 'database/customer.php?func="insert"&table='+table,
+          url: 'database/database.php?func="insert"&table='+table,
           type: "POST",
           data: {
 				name: scope[scopeVariable].name,
@@ -161,7 +362,7 @@ bowlingDatabase.prototype.edit = function(scope, scopeVariable, table){
 		console.log(scope[scopeVariable].city);
 		
 		$.ajax({
-          url: 'database/customer.php?func="edit"&table='+table,
+          url: 'database/database.php?func="edit"&table='+table,
           type: "POST",
           data: {
 			    idCustomer: scope[scopeVariable].idCustomer,
@@ -203,7 +404,7 @@ bowlingDatabase.prototype.remove = function(id, table){
 		var dbHandler = new $.Deferred();
 		
 		$.ajax({
-          url: 'database/customer.php?func="del"&table='+table,
+          url: 'database/database.php?func="del"&table='+table,
           type: "POST",
           data: {
 			    idCustomer: id
@@ -233,7 +434,34 @@ bowlingDatabase.prototype.search = function(scope, scopeVariable, table, text, s
 		var dbHandler = new $.Deferred();
 		
 		$.ajax({
-          url: 'database/customer.php?func="search"&text='+text+"&searchBy="+searchBy,
+          url: 'database/database.php?func="search"&text='+text+"&searchBy="+searchBy+'&table='+table,
+          type: "GET",
+          data: {"key":"value"},
+          success: function(data){
+			dbHandler.resolve(data);
+			
+          }, 
+          error: function(){
+            //$('body').html("Error happened");
+			return null;
+          }
+        });  
+		
+		dbHandler.promise().done(function(data){
+			//scope.customers = arguments[0];
+			scope[scopeVariable] = arguments[0];
+			scope.$apply();
+			
+		});
+		
+	};
+	
+
+bowlingDatabase.prototype.searchCustomer = function(scope, scopeVariable, text, searchBy){
+		var dbHandler = new $.Deferred();
+		
+		$.ajax({
+          url: 'database/customer.php?func="searchCustomer"&text='+text+"&searchBy="+searchBy,
           type: "GET",
           data: {"key":"value"},
           success: function(data){

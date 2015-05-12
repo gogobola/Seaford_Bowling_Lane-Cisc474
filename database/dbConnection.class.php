@@ -10,8 +10,11 @@
         
         public function BowlingConnection(){
             $this->host = "localhost";
-            $this->user = "engineerdb_ball";
-            $this->pass = "Advancedweb2015";
+            //$this->user = "engineerdb_ball";
+            //$this->pass = "Advancedweb2015";
+			
+			$this->user = "diogo";
+			$this->pass = "Cefet2015";
 			
             $this->database = "bowling_ball";
             
@@ -581,6 +584,37 @@
 			header('Content-Type: application/json');
 			echo json_encode($results);
         }
+		
+		public function searchBy($table, $term, $text)
+		{
+			$query = "SELECT * FROM $table 
+						WHERE ( $term LIKE '%$text%')";
+				
+			$statement = $this->conn->prepare($query);
+			$statement->execute();
+			$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+			header('HTTP/1.1 200 OK');
+			header('Content-Type: application/json');
+			echo json_encode($results);
+		}
+		
+		public function searchOrderBy($term, $text)
+		{
+			$query = "SELECT O.*, B.*, C.name as customer, C.phone as customerPhone, 
+						C.email as customerEmail, S.name as customerState, S.abbr as customerStateAbbr
+						FROM `order` O, customer C, state S, ball B
+						WHERE ( (O.id_customer = $customer_id) AND 
+							   (O.id_customer = C.idCustomer) AND (O.id_ball = B.idBall) 
+								AND (C.id_state = S.idState) AND ( $term LIKE '%$text%') )";
+			
+			
+			$statement = $this->conn->prepare($query);
+			$statement->execute();
+			$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+			header('HTTP/1.1 200 OK');
+			header('Content-Type: application/json');
+			echo json_encode($results);
+		}
         
 		//********************************* STRUCTURE *****************************
 		

@@ -46,7 +46,7 @@
 				weight
 			</th>
 			
-			<th width="9%" COLSPAN=3>
+			<th width="9%" >
 				Layout
 			</th>
 			<th width="27%">
@@ -72,16 +72,24 @@
 				PAP UpDown
 			</th>
 			
-			<th width="9%" COLSPAN=3>
+			<th width="9%" >
 				Offset Thumb
 			</th>
 			<th width="12%">
 				Thumb Style
 			</th>
 			
-			<th width="9%" COLSPAN=3>
+			<th width="9%" >
 				Finger Style
 			</th>
+				<th width="12%">
+				Price
+			</th>
+			
+			<th width="12%">
+				Complete-by Date
+			</th>
+			
 		</tr>
 		
 		<tr ng-repeat="ball in balls " >
@@ -142,6 +150,13 @@
 				{{ball.finger_style}}
 			</td>
 			<td>
+				{{ball.price}}
+			</td>
+			
+			<td>
+				{{ball.complete_date}}
+			</td>
+			<td>
 				<button class="btn btn-xs" ng-click="view(ball.idBall)" > <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </button> 
 			</td>
 			
@@ -185,3 +200,4 @@
     </div>
   </div>
 </div>
+

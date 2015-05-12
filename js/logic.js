@@ -19,10 +19,22 @@ var bowlingApp = angular.module('bowlingApp', ['ngRoute']);
 					templateUrl: 'Partials/customer.html'
 
 				})
+			.when('/balls',
+				{
+						controller: 'BallController',
+						templateUrl: 'Partials/ballinfo.html'
+
+				})
+			.when('/orders',
+				{
+						controller: 'OrderController',
+						templateUrl: 'Partials/orderInfo.html'
+
+				})
 			.otherwise({redirectTo: '/view1'});
 		}]);
 		
-		
+			
 
 		bowlingApp.controller('SimpleController', ["$scope","$routeParams", 
 		function($scope, $routeParams) {
@@ -109,3 +121,31 @@ var bowlingApp = angular.module('bowlingApp', ['ngRoute']);
 		
         
 	}]);
+
+
+
+	bowlingApp.controller('BallController', ["$scope",
+      function($scope) {
+
+                $scope.title = "Balls";
+                $scope.balls = [];
+
+		var dbBowling = new bowlingDatabase();
+
+        dbBowling.getAllBalls($scope, "balls");
+
+	 }]);
+	 
+	 
+	 
+	 bowlingApp.controller('OrderController', ["$scope",
+      function($scope) {
+
+                $scope.title = "Orders";
+                $scope.orders = [];
+
+		var dbBowling = new bowlingDatabase();
+
+        dbBowling.getAllOrders($scope, "orders");
+
+	 }]);

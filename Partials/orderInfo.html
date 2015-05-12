@@ -1,0 +1,116 @@
+<div class="container">
+	
+	<div class="header">
+		<H2> {{title}} </H2>
+	</div>
+	
+	<div ng-show="msgBox" ng-bind="msgBox">
+	
+	</div>
+	
+	<div class="subMenu">
+		
+		<div class="input-group">
+			<span class="input-group-addon"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> </span> 
+			<input type=text id="search" ng-model="searchText" ng-change="searchOrder()"  placeholder="Search orders by {{searchBy}}"  class="form-control span5"> 
+			<span class="input-group-addon"> 
+				<SELECT id="searchBy" ng-model="searchBy" ng-options="option.attr as option.option for option in orderSearchByOptions">
+					
+				</SELECT>
+			</span>
+		</div>
+		
+		<button class="btn btn-primary btn-add" ng-click="newOrder()" > <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Order </button>
+		
+	</div>
+	
+	<table class="table table-bordered table-striped table-hover table-shadowed">
+		<tr bgcolor="#bbf" class="titleRow">
+			<th width="27%">
+				Customer ID
+			</th>
+			
+			<th width="20%">
+				Ball ID
+			</th>
+			
+			<th width="5%">
+				Ordered On
+			</th>
+			
+			<th width="12%">
+				Price
+			</th>
+			
+			<th width="27%">
+				Completed-by
+			</th>
+			
+		</tr>
+		
+		<tr ng-repeat="order in orders " >
+            <td ng-bind="order.id_customer">
+				{{order.id_customer}}
+			</td>
+			
+			<td>
+				{{order.id_ball}}
+			</td>
+			
+			<td>
+				{{order.date}}
+			</td>
+			
+			<td>
+				{{order.price}}
+			</td>
+			
+			<td>
+				{{order.completed_by}}
+			</td>
+			
+			<td>
+				<button class="btn btn-xs" ng-click="view(order.id_customer)" > <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </button> 
+			</td>
+			
+			<td>
+				<button class="btn btn-info btn-xs" ng-click="edit(order.id_customer)" >  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </button> 
+			</td>
+			<!--
+			<td>
+				<button class="btn btn-danger btn-xs" ng-click="del(order.id_customer)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>   </button> 
+			</td>
+			-->
+		</tr>
+		
+		<tr ng-hide="orders"> <td COLSPAN=6 align=center> <i> No orders </i> </td> </tr>
+	</table>
+	
+</div>
+
+<div class="model fade" id="OrderModel" tabindex="-1" role="dialog" aria-labelledby="mymodelLabel" aria-hidden="true">  <div class="model-dialog">
+    <div class="model-content">
+      <div class="model-header viewTitle" >
+        <button type="button" class="close" data-dismiss="model" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="model-title">{{title}} - {{selectedOrder.id_customer}}</h4>
+      </div>
+      <div class="model-body">
+        <table class="table">
+			<tr ng-repeat="(key, value) in selectedOrder" > 
+				<td>
+					<b> {{key}}: </b>
+				</td>
+				
+				<td>
+					{{value}}
+				</td>
+			</tr>
+		</table>
+      </div>
+      <div class="model-footer">
+        <button type="button" class="btn btn-default" data-dismiss="model">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
