@@ -1,4 +1,3 @@
-
 <div class="container">
 	
 	<div class="header">
@@ -13,96 +12,94 @@
 		
 		<div class="input-group">
 			<span class="input-group-addon"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> </span> 
-			<input type=text id="search" ng-model="searchText" ng-change="searchCustomer()"  placeholder="Search customers by {{searchBy}}"  class="form-control span5"> 
+			<input type=text id="search" ng-model="searchText" ng-change="searchBall()"  placeholder="Search balls by {{searchBy}}"  class="form-control span5"> 
 			<span class="input-group-addon"> 
-				<SELECT id="searchBy" ng-model="searchBy" ng-options="option.attr as option.option for option in customerSearchByOptions">
+				<SELECT id="searchBy" ng-model="searchBy" ng-options="option.attr as option.option for option in ballSearchByOptions">
 					
 				</SELECT>
 			</span>
 		</div>
 		
-		<button class="btn btn-primary btn-add" ng-click="newCustomer()" > <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Customer </button>
+		<button class="btn btn-primary btn-add" ng-click="newBall()" > <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Ball </button>
 		
 	</div>
 	
 	<table class="table table-bordered table-striped table-hover table-shadowed">
 		<tr bgcolor="#bbf" class="titleRow">
+			<th width="15%">
+				ID
+			</th>
 			<th width="27%">
-				Name
-			</th>
-			
-			<th width="20%">
-				City
-			</th>
-			
-			<th width="5%">
-				State
+				Hand
 			</th>
 			
 			<th width="12%">
-				Phone
+				weight
 			</th>
 			
-			<th width="27%">
-				Email
+			<th width="9%" >
+				Layout
 			</th>
 			
-			<th width="9%" COLSPAN=3>
-				Options
+			<th width="5%">
+				Size
 			</th>
+		
+		
 			
 		</tr>
 		
-		<tr ng-repeat="customer in customers " >
-            <td ng-bind="customer.name">
-				{{customer.name}}
+		<tr ng-repeat="ball in balls " >
+			
+			<td ng-bind="ball.idBall">
+				{{ball.idBall}}
+			</td>
+			
+            <td ng-bind="ball.hand">
+				{{ball.hand}}
+			</td>
+			
+			
+			<td>
+				{{ball.weight}}
+			</td>
+			<td>
+				{{ball.layout}}
 			</td>
 			
 			<td>
-				{{customer.city}}
+				{{ball.size}}
+			</td>
+			
+		
+			<td>
+				<button class="btn btn-xs" ng-click="view(ball.idBall)" > <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </button> 
 			</td>
 			
 			<td>
-				{{customer.StateAbbr}}
+				<button class="btn btn-info btn-xs" ng-click="edit(ball.idBall)" >  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </button> 
 			</td>
 			
 			<td>
-				{{customer.phone}}
-			</td>
-			
-			<td>
-				{{customer.email}}
-			</td>
-			
-			<td>
-				<button class="btn btn-xs" ng-click="view(customer.idCustomer)" > <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </button> 
-			</td>
-			
-			<td>
-				<button class="btn btn-info btn-xs" ng-click="edit(customer.idCustomer)" >  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </button> 
-			</td>
-			
-			<td>
-				<button class="btn btn-danger btn-xs" ng-click="del(customer.idCustomer, customer.name)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>   </button> 
+				<button class="btn btn-danger btn-xs" ng-click="del(ball.idBall)" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>   </button> 
 			</td>
 			
 		</tr>
 		
-		<tr ng-hide="customers"> <td COLSPAN=6 align=center> <i> No customers </i> </td> </tr>
+		<tr ng-hide="balls"> <td COLSPAN=6 align=center> <i> No bowling balls </i> </td> </tr>
 	</table>
 	
 </div>
 
-<!-- MODAL -->
-<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header viewTitle" >
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">{{title}} - {{selectedCustomer.Name}}</h4>
+<div class="model fade" id="BallModel" tabindex="-1" role="dialog" aria-labelledby="mymodelLabel" aria-hidden="true">  <div class="model-dialog">
+    <div class="model-content">
+      <div class="model-header viewTitle" >
+        <button type="button" class="close" data-dismiss="model" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="model-title">{{title}} - {{selectedBall.idBall}}</h4>
       </div>
-      <div class="modal-body">
+      <div class="model-body">
         <table class="table">
-			<tr ng-repeat="(key, value) in selectedCustomer" > 
+			<tr ng-repeat="(key, value) in selectedBall" > 
 				<td>
 					<b> {{key}}: </b>
 				</td>
@@ -113,134 +110,353 @@
 			</tr>
 		</table>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      <div class="model-footer">
+        <button type="button" class="btn btn-default" data-dismiss="model">Close</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+  </div>
+</div>
 
-<div class="modal fade" id="customerAddEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  <div class="modal-dialog">
+<div class="modal fade" id="ballAddEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header addEditTitle">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title ">{{addEditTitle}}</h4>
       </div>
       <div class="modal-body">
-        <!-- ng-if="selectedCustomer"    ng-repeat="(key, value) in selectedCustomer" -->
+        <!-- ng-if="selectedBall"    ng-repeat="(key, value) in selectedBall" -->
 		
-		<div ng-show="selectedCustomer" class="form-group">
+		<div ng-show="selectedBall" class="form-group">
 			<table class="table" >
 				<tr > 
-					<td width="100%" COLSPAN=3>
-						<label> Name </label>
-						<input type=text id="name" ng-value="selectedCustomer.name" ng-model="selectedCustomer.name" class="form-control" placeholder="Name">
-					</td>
-				</tr>
-				
-				<tr > 
-					<td width="100%" COLSPAN=3>
-						<label> Address </label>
-						<input type=text ng-value="selectedCustomer.address" ng-model="selectedCustomer.address" class="form-control" placeholder="Address">
+					<td>
+						<label> Hand </label>
+						<input type=text id="name" ng-value="selectedBall.hand" ng-model="selectedBall.hand" class="form-control" placeholder="Hand">
 					</td>
 				</tr>
 				
 				<tr > 
 					<td>
-						<label> City </label>
-						<input type=text ng-value="selectedCustomer.city" ng-model="selectedCustomer.city" class="form-control" placeholder="City">
+						<label> Conv </label>
+						<input type=text ng-value="selectedBall.conv" ng-model="selectedBall.conv" class="form-control" placeholder="Conv">
+					</td>
+				</tr>
+				
+				<tr > 
+					<td>
+						<label> FT </label>
+						<input type=text ng-value="selectedBall.ft" ng-model="selectedBall.ft" class="form-control" placeholder="FT">
 					</td>
 					
 					<td>
-						<label> State </label>
-						<select id="state" class="form-control" ng-model="selectedCustomer.id_state" ng-options="state.idState as state.name for state in states" >
-							<!--<option ng-repeat="state in states" ng-value="state.idState"> {{state.name}} -->
+						<label> Pin </label>
+						<select type= text  ng-value="selectedBall.pin" ng-model="selectedBall.pin" class="form-control" placeholder="Pin" >
+							
 						</select>
 					</td>
 					
 					<td>
-						<label> Zip-code </label>
-						<input type=text ng-value="selectedCustomer.zip" ng-model="selectedCustomer.zip" class="form-control" placeholder="Zip-code">
+						<label> Weight </label>
+						<input type=text ng-value="selectedBall.weight" ng-model="selectedBall.weight" class="form-control" placeholder="Weight">
 					</td>
 				</tr>
 				
 				<tr > 
 					<td>
-						<label> Phone </label>
-						<input type=tel ng-value="selectedCustomer.phone" ng-model="selectedCustomer.phone" class="form-control" placeholder="### ### ####">
+						<label> Layout </label>
+						<input type=text ng-value="selectedBall.layout" ng-model="selectedBall.layout" class="form-control" placeholder="Layout">
 					</td>
 					
 					<td>
-						<label> Cellular </label>
-						<input type=tel ng-value="selectedCustomer.cell" ng-model="selectedCustomer.cell" class="form-control" placeholder="### ### ####">
+						<label> Surface </label>
+						<input type=text ng-value="selectedBall.surface" ng-model="selectedBall.surface" class="form-control" placeholder="Surface">
 					</td>
 					
 					<td>
-						<label> Email </label>
-						<input type=email ng-value="selectedCustomer.email" ng-model="selectedCustomer.email" class="form-control" placeholder="example@test.com">
+						<label> BH Position </label>
+						<input type=text ng-value="selectedBall.bh_position" ng-model="selectedBall.bh_position" class="form-control" placeholder="BH Position">
 					</td>
 						
 				</tr>
-				
-				
+					<tr > 
+					<td>
+						<label> Size </label>
+						<input type=text ng-value="selectedBall.size" ng-model="selectedBall.size" class="form-control" placeholder="Size">
+					</td>
+					
+					<td>
+						<label> Depth </label>
+						<input type=text ng-value="selectedBall.depth" ng-model="selectedBall.depth" class="form-control" placeholder="Depth">
+					</td>
+					
+					<td>
+						<label> PAP Horizontal</label>
+						<input type=text ng-value="selectedBall.pap_horizontal" ng-model="selectedBall.pap_horizontal" class="form-control" placeholder="PAP Horizontal">
+					</td>
+						
+				</tr>
+					<tr > 
+					<td>
+						<label> Offset Thumb </label>
+						<input type=text ng-value="selectedBall.offset_thumb" ng-model="selectedBall.offset_thumb" class="form-control" placeholder="Offset Thumb">
+					</td>
+					
+					<td>
+						<label> Thumb Style </label>
+						<input type=text ng-value="selectedBall.thumb_style" ng-model="selectedBall.thumb_style" class="form-control" placeholder="Thumb Style">
+					</td>
+					
+					<td>
+						<label> Finger Style</label>
+						<input type=text ng-value="selectedBall.finger_style" ng-model="selectedBall.finger_style" class="form-control" placeholder="Finger Style">
+					</td>
+						
+				</tr>
+				<tr > 
+					<td>
+						<label> Left Finger Measure </label>
+						<input type=text ng-value="selectedBall.lf_measure" ng-model="selectedBall.lf_measure" class="form-control" placeholder="Measurement">
+					</td>
+					
+					<td>
+						<label> Left Arrow Style </label>
+						<input type=text ng-value="selectedBall.la_style" ng-model="selectedBall.la_style" class="form-control" placeholder="Fraction">
+					</td>
+					<td>
+						<label> Left Arrow Measure</label>
+						<input type=text ng-value="selectedBall.la_arrow" ng-model="selectedBall.la_arrow" class="form-control" placeholder="Measurement">
+					</td>
+					<td>
+						<label> Left Finger Oval Cut</label>
+						<input type=text ng-value="selectedBall.lf_oval" ng-model="selectedBall.lf_oval" class="form-control" placeholder="Oval Cut">
+					</td>
+						
+				</tr>
+				<tr > 
+					<td>
+						<label> Right Finger Measure </label>
+						<input type=text ng-value="selectedBall.rf_measure" ng-model="selectedBall.rf_measure" class="form-control" placeholder="Measurement">
+					</td>
+					
+					<td>
+						<label> Right Arrow Style </label>
+						<input type=text ng-value="selectedBall.ra_style" ng-model="selectedBall.ra_style" class="form-control" placeholder="Fraction">
+					</td>
+					<td>
+						<label> Right Arrow Measure</label>
+						<input type=text ng-value="selectedBall.ra_arrow" ng-model="selectedBall.ra_arrow" class="form-control" placeholder="Measurement">
+					</td>
+					<td>
+						<label> Right Finger Oval Cut</label>
+						<input type=text ng-value="selectedBall.rf_oval" ng-model="selectedBall.rf_oval" class="form-control" placeholder="Oval Cut">
+					</td>
+						
+				</tr>
+						<tr > 
+					<td>
+						<label> Thumb Finger Measure </label>
+						<input type=text ng-value="selectedBall.th_measure" ng-model="selectedBall.th_measure" class="form-control" placeholder="Measurement">
+					</td>
+					
+					<td>
+						<label> Thumb Arrow Style </label>
+						<input type=text ng-value="selectedBall.th_style" ng-model="selectedBall.th_style" class="form-control" placeholder="Fraction">
+					</td>
+					<td>
+						<label> Thumb Arrow Measure</label>
+						<input type=text ng-value="selectedBall.th_arrow" ng-model="selectedBall.th_arrow" class="form-control" placeholder="Measurement">
+					</td>
+					<td>
+						<label> Thumb Finger Oval Cut</label>
+						<input type=text ng-value="selectedBall.th_oval" ng-model="selectedBall.th_oval" class="form-control" placeholder="Oval Cut">
+					</td>
+						
+				</tr>
+						<tr > 
+					<td>
+						<label> Finger-Finger Separation </label>
+						<input type=text ng-value="selectedBall.ff_sep" ng-model="selectedBall.ff_sep" class="form-control" placeholder="Measurement">
+					</td>
+					
+					<td>
+						<label> Left-Thumb Separation </label>
+						<input type=text ng-value="selectedBall.lt_sep" ng-model="selectedBall.lt_sep" class="form-control" placeholder="Fraction">
+					</td>
+					
+					<td>
+						<label> Right-Thumb Separation</label>
+						<input type=text ng-value="selectedBall.rt_sep" ng-model="selectedBall.rt_sep" class="form-control" placeholder="Oval Cut">
+					</td>
+						
+				</tr>
 			</table>
 		</div>
 		
 		
-		<div ng-hide="selectedCustomer">
+		<div ng-hide="selectedBall">
 			<table class="table" >
+				<table class="table" >
 				<tr > 
 					<td width="100%" COLSPAN=3>
-						<label> Name </label>
-						<input id="name" type=text ng-model="selectedCustomer.name" class="form-control" placeholder="Name" required>
+						<label> Hand </label>
+						<input type=text id="name" ng-value="selectedBall.hand" ng-model="selectedBall.hand" class="form-control" placeholder="Hand">
 					</td>
 				</tr>
 				
 				<tr > 
 					<td width="100%" COLSPAN=3>
-						<label> Address </label>
-						<input type=text ng-model="selectedCustomer.address" class="form-control" placeholder="Address">
+						<label> Conv </label>
+						<input type=text ng-value="selectedBall.conv" ng-model="selectedBall.conv" class="form-control" placeholder="Conv">
 					</td>
 				</tr>
 				
 				<tr > 
 					<td>
-						<label> City </label>
-						<input type=text ng-model="selectedCustomer.city" class="form-control" placeholder="City">
+						<label> FT </label>
+						<input type=text ng-value="selectedBall.ft" ng-model="selectedBall.ft" class="form-control" placeholder="FT">
 					</td>
 					
 					<td>
-						<label> State </label>
-						<select id="state" class="form-control" ng-model="selectedCustomer.id_state" ng-options="state.idState as state.name for state in states" required>
+						<label> Pin </label>
+						<select type= text  ng-value="selectedBall.pin" ng-model="selectedBall.pin" class="form-control" placeholder="Pin" >
+							
 						</select>
 					</td>
 					
 					<td>
-						<label> Zip-code </label>
-						<input type=text ng-model="selectedCustomer.zip" class="form-control" placeholder="Zip-code">
+						<label> Weight </label>
+						<input type=text ng-value="selectedBall.weight" ng-model="selectedBall.weight" class="form-control" placeholder="Weight">
 					</td>
 				</tr>
 				
 				<tr > 
 					<td>
-						<label> Phone </label>
-						<input type=tel ng-model="selectedCustomer.phone" class="form-control" placeholder="### ### ####">
+						<label> Layout </label>
+						<input type=text ng-value="selectedBall.layout" ng-model="selectedBall.layout" class="form-control" placeholder="Layout">
 					</td>
 					
 					<td>
-						<label> Cellular </label>
-						<input type=tel ng-model="selectedCustomer.cell" class="form-control" placeholder="### ### ####">
+						<label> Surface </label>
+						<input type=text ng-value="selectedBall.surface" ng-model="selectedBall.surface" class="form-control" placeholder="Surface">
 					</td>
 					
 					<td>
-						<label> Email </label>
-						<input type=email ng-model="selectedCustomer.email" class="form-control" placeholder="example@test.com" required>
+						<label> BH Position </label>
+						<input type=text ng-value="selectedBall.bh_position" ng-model="selectedBall.bh_position" class="form-control" placeholder="BH Position">
 					</td>
 						
 				</tr>
-				
-				
+					<tr > 
+					<td>
+						<label> Size </label>
+						<input type=text ng-value="selectedBall.size" ng-model="selectedBall.size" class="form-control" placeholder="Size">
+					</td>
+					
+					<td>
+						<label> Depth </label>
+						<input type=text ng-value="selectedBall.depth" ng-model="selectedBall.depth" class="form-control" placeholder="Depth">
+					</td>
+					
+					<td>
+						<label> PAP Horizontal</label>
+						<input type=text ng-value="selectedBall.pap_horizontal" ng-model="selectedBall.pap_horizontal" class="form-control" placeholder="PAP Horizontal">
+					</td>
+						
+				</tr>
+					<tr > 
+					<td>
+						<label> Offset Thumb </label>
+						<input type=text ng-value="selectedBall.offset_thumb" ng-model="selectedBall.offset_thumb" class="form-control" placeholder="Offset Thumb">
+					</td>
+					
+					<td>
+						<label> Thumb Style </label>
+						<input type=text ng-value="selectedBall.thumb_style" ng-model="selectedBall.thumb_style" class="form-control" placeholder="Thumb Style">
+					</td>
+					
+					<td>
+						<label> Finger Style</label>
+						<input type=text ng-value="selectedBall.finger_style" ng-model="selectedBall.finger_style" class="form-control" placeholder="Finger Style">
+					</td>
+						
+				</tr>
+				<tr > 
+					<td>
+						<label> Left Finger Measure </label>
+						<input type=text ng-value="selectedBall.lf_measure" ng-model="selectedBall.lf_measure" class="form-control" placeholder="Measurement">
+					</td>
+					
+					<td>
+						<label> Left Arrow Style </label>
+						<input type=text ng-value="selectedBall.la_style" ng-model="selectedBall.la_style" class="form-control" placeholder="Fraction">
+					</td>
+					<td>
+						<label> Left Arrow Measure</label>
+						<input type=text ng-value="selectedBall.la_arrow" ng-model="selectedBall.la_arrow" class="form-control" placeholder="Measurement">
+					</td>
+					<td>
+						<label> Left Finger Oval Cut</label>
+						<input type=text ng-value="selectedBall.lf_oval" ng-model="selectedBall.lf_oval" class="form-control" placeholder="Oval Cut">
+					</td>
+						
+				</tr>
+				<tr > 
+					<td>
+						<label> Right Finger Measure </label>
+						<input type=text ng-value="selectedBall.rf_measure" ng-model="selectedBall.rf_measure" class="form-control" placeholder="Measurement">
+					</td>
+					
+					<td>
+						<label> Right Arrow Style </label>
+						<input type=text ng-value="selectedBall.ra_style" ng-model="selectedBall.ra_style" class="form-control" placeholder="Fraction">
+					</td>
+					<td>
+						<label> Right Arrow Measure</label>
+						<input type=text ng-value="selectedBall.ra_arrow" ng-model="selectedBall.ra_arrow" class="form-control" placeholder="Measurement">
+					</td>
+					<td>
+						<label> Right Finger Oval Cut</label>
+						<input type=text ng-value="selectedBall.rf_oval" ng-model="selectedBall.rf_oval" class="form-control" placeholder="Oval Cut">
+					</td>
+						
+				</tr>
+						<tr > 
+					<td>
+						<label> Thumb Finger Measure </label>
+						<input type=text ng-value="selectedBall.th_measure" ng-model="selectedBall.th_measure" class="form-control" placeholder="Measurement">
+					</td>
+					
+					<td>
+						<label> Thumb Arrow Style </label>
+						<input type=text ng-value="selectedBall.th_style" ng-model="selectedBall.th_style" class="form-control" placeholder="Fraction">
+					</td>
+					<td>
+						<label> Thumb Arrow Measure</label>
+						<input type=text ng-value="selectedBall.th_arrow" ng-model="selectedBall.th_arrow" class="form-control" placeholder="Measurement">
+					</td>
+					<td>
+						<label> Thumb Finger Oval Cut</label>
+						<input type=text ng-value="selectedBall.th_oval" ng-model="selectedBall.th_oval" class="form-control" placeholder="Oval Cut">
+					</td>
+						
+				</tr>
+						<tr > 
+					<td>
+						<label> Finger-Finger Separation </label>
+						<input type=text ng-value="selectedBall.ff_sep" ng-model="selectedBall.ff_sep" class="form-control" placeholder="Measurement">
+					</td>
+					
+					<td>
+						<label> Left-Thumb Separation </label>
+						<input type=text ng-value="selectedBall.lt_sep" ng-model="selectedBall.lt_sep" class="form-control" placeholder="Fraction">
+					</td>
+					
+					<td>
+						<label> Right-Thumb Separation</label>
+						<input type=text ng-value="selectedBall.rt_sep" ng-model="selectedBall.rt_sep" class="form-control" placeholder="Oval Cut">
+					</td>
+						
+				</tr>
 			</table>
 		</div>
 		
@@ -254,19 +470,19 @@
 </div><!-- /.modal -->
 
 
-<div class="modal fade" id="customerDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  <div class="modal-dialog">
+<div class="modal fade" id="ballDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header delTitle">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title mdeletion">{{title}} Deletion - {{delCustomerName}}</h4>
+        <h4 class="modal-title mdeletion">{{title}} Deletion - {{delBallID}}</h4>
       </div>
       <div class="modal-body">
-		<p> This action will remove the customer <b> {{delCustomerName}} </b> from the database. Are you sure?
+		<p> This action will remove the customer <b> {{delBallID}} </b> from the database. Are you sure?
 		
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" ng-click="remove()" class="btn btn-danger">Delete Customer</button>
+        <button type="button" ng-click="remove()" class="btn btn-danger">Delete Ball</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
