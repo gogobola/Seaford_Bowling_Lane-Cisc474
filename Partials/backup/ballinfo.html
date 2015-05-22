@@ -1,38 +1,3 @@
-<!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-        <div class="container topnav">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand topnav" href="#">Seaford Bowling</a> 
-				<ul class="nav navbar-nav">
-				<li class="active"> <a class="topnav" href="#/balls">Balls</a> </li>
-				<li > <a class="topnav" href="#/customers"> Customers</a> </li>
-				<li> <a class="topnav" href="#/orders">Orders</a> </li>
-				</ul>
-            </div>
-			
-			
-			
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#/main" >Log Out</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-<br>
-<br>
 <div class="container">
 	
 	<div class="header">
@@ -79,10 +44,6 @@
 			<th width="5%">
 				Size
 			</th>
-            
-            <th COLSPAN=3>
-                    Options
-            </th>
 		
 		
 			
@@ -130,15 +91,14 @@
 	
 </div>
 
-<div class="modal fade" id="ballModal" style="max-width: 60%; margin-top: 10%; margin-left:20%" tabindex="-1" role="dialog" aria-labelledby="mymodalLabel" aria-hidden="true">  <div class="model-dialog">
+<div class="model fade" id="BallModal" tabindex="-1" role="dialog" aria-labelledby="mymodalLabel" aria-hidden="true">  <div class="model-dialog">
     <div class="modal-content">
       <div class="modal-header viewTitle" >
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="model" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">{{title}} - {{selectedBall.idBall}}</h4>
       </div>
       <div class="modal-body">
-        <!--
-        <table class="table" >
+        <table class="table">
 			<tr ng-repeat="(key, value) in selectedBall" > 
 				<td>
 					<b> {{key}}: </b>
@@ -149,11 +109,6 @@
 				</td>
 			</tr>
 		</table>
-        -->
-        <div style="display: inline;  margin-left: 10px; margin-right: 100px; margin-bottom: 10px; width: 100px;" ng-repeat="(key, value) in selectedBall">
-            <div style="width:300px;"> <b> {{key}}: </b> {{value}} </div>
-        </div>
-        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -177,165 +132,163 @@
 				<tr > 
 					<td>
 						<label> Hand </label>
-						<input type=text id="name" ng-value="selectedBall.hand" ng-model="selectedBall.hand" class="form-control" placeholder="Hand">
+						<input type=text name="hand"id="hand" ng-value="selectedBall.hand" ng-model="selectedBall.hand" class="form-control" placeholder="Hand">
 					</td>
 			 
 					<td>
 						<label> Conv </label>
-						<input type=text ng-value="selectedBall.conv" ng-model="selectedBall.conv" class="form-control" placeholder="Conv">
+						<input type=text name="conv" ng-value="selectedBall.conv" ng-model="selectedBall.conv" class="form-control" placeholder="Conv">
 					</td>
 				</tr>
 				
 				<tr > 
 					<td>
 						<label> FT </label>
-						<input type=text ng-value="selectedBall.ft" ng-model="selectedBall.ft" class="form-control" placeholder="FT">
+						<input type=text name="ft" ng-value="selectedBall.ft" ng-model="selectedBall.ft" class="form-control" placeholder="FT">
 					</td>
 					
 					<td>
 						<label> Pin </label>
-						<input type= text  ng-value="selectedBall.pin" ng-model="selectedBall.pin" class="form-control" placeholder="Pin" >
+						<input type= text  name="pin" ng-value="selectedBall.pin" ng-model="selectedBall.pin" class="form-control" placeholder="Pin" >
 							
-						</select>
+						</input>
 					</td>
 					
 					<td>
 						<label> Weight </label>
-						<input type=text ng-value="selectedBall.weight" ng-model="selectedBall.weight" class="form-control" placeholder="Weight">
+						<input type=text name="weight" ng-value="selectedBall.weight" ng-model="selectedBall.weight" class="form-control" placeholder="Weight">
 					</td>
 				</tr>
 				
 				<tr > 
 					<td>
 						<label> Layout </label>
-						<input type=text ng-value="selectedBall.layout" ng-model="selectedBall.layout" class="form-control" placeholder="Layout">
+						<input name="layout" type=text ng-value="selectedBall.layout" ng-model="selectedBall.layout" class="form-control" placeholder="Layout">
 					</td>
 					
 					<td>
 						<label> Surface </label>
-						<input type=text ng-value="selectedBall.surface" ng-model="selectedBall.surface" class="form-control" placeholder="Surface">
+						<input type=text name="surface" ng-value="selectedBall.surface" ng-model="selectedBall.surface" class="form-control" placeholder="Surface">
 					</td>
 					
 					<td>
 						<label> BH Position </label>
-						<input type=text ng-value="selectedBall.bh_position" ng-model="selectedBall.bh_position" class="form-control" placeholder="BH Position">
+						<input type=text name="bh_position" ng-value="selectedBall.bh_position" ng-model="selectedBall.bh_position" class="form-control" placeholder="BH Position">
 					</td>
 						
 				</tr>
 					<tr > 
 					<td>
 						<label> Size </label>
-						<input type=text ng-value="selectedBall.size" ng-model="selectedBall.size" class="form-control" placeholder="Size">
+						<input type=text name="size" ng-value="selectedBall.size" ng-model="selectedBall.size" class="form-control" placeholder="Size">
 					</td>
 					
 					<td>
 						<label> Depth </label>
-						<input type=text ng-value="selectedBall.depth" ng-model="selectedBall.depth" class="form-control" placeholder="Depth">
+						<input type=text name="depth" ng-value="selectedBall.depth" ng-model="selectedBall.depth" class="form-control" placeholder="Depth">
 					</td>
 					
 					<td>
 						<label> PAP Horizontal</label>
-						<input type=text ng-value="selectedBall.pap_horizontal" ng-model="selectedBall.pap_horizontal" class="form-control" placeholder="PAP Horizontal">
+						<input type=text name="pap_horizontal" ng-value="selectedBall.pap_horizontal" ng-model="selectedBall.pap_horizontal" class="form-control" placeholder="PAP Horizontal">
 					</td>
-                    
-                    <td>
-                        <label> PAP UpDown</label>
-                        <input type=text ng-value="selectedBall.pap_updown" ng-model="selectedBall.pap_updown" class="form-control" placeholder="PAP UpDown">
-                    </td>
-
+					<td>
+						<label> PAP UpDown</label>
+						<input type=text name="pap_updown" ng-value="selectedBall.pap_updown" ng-model="selectedBall.pap_updown" class="form-control" placeholder="PAP Horizontal">
+					</td>
 						
 				</tr>
 					<tr > 
 					<td>
 						<label> Offset Thumb </label>
-						<input type=text ng-value="selectedBall.offset_thumb" ng-model="selectedBall.offset_thumb" class="form-control" placeholder="Offset Thumb">
+						<input type=text ng-value="selectedBall.offset_thumb" name="offset_thumb" ng-model="selectedBall.offset_thumb" class="form-control" placeholder="Offset Thumb">
 					</td>
 					
 					<td>
 						<label> Thumb Style </label>
-						<input type=text ng-value="selectedBall.thumb_style" ng-model="selectedBall.thumb_style" class="form-control" placeholder="Thumb Style">
+						<input type=text name="thumb_style" ng-value="selectedBall.thumb_style" ng-model="selectedBall.thumb_style" class="form-control" placeholder="Thumb Style">
 					</td>
 					
 					<td>
 						<label> Finger Style</label>
-						<input type=text ng-value="selectedBall.fingers_style" ng-model="selectedBall.fingers_style" class="form-control" placeholder="Finger Style">
+						<input type=text name="fingers_style" ng-value="selectedBall.fingers_style" ng-model="selectedBall.fingers_style" class="form-control" placeholder="Finger Style">
 					</td>
 						
 				</tr>
 				<tr > 
 					<td>
 						<label> Left Finger Measure </label>
-						<input type=text ng-value="selectedBall.lf_measure" ng-model="selectedBall.lf_measure" class="form-control" placeholder="Measurement">
+						<input type=text name="lf_measure"ng-value="selectedBall.lf_measure" ng-model="selectedBall.lf_measure" class="form-control" placeholder="Measurement">
 					</td>
 					
 					<td>
 						<label> Left Arrow Style </label>
-						<input type=text ng-value="selectedBall.la_style" ng-model="selectedBall.la_style" class="form-control" placeholder="UpDown/Horizontal">
+						<input type=text name="la_style"ng-value="selectedBall.la_style" ng-model="selectedBall.la_style" class="form-control" placeholder="Fraction">
 					</td>
 					<td>
 						<label> Left Arrow Measure</label>
-						<input type=text ng-value="selectedBall.la_arrow" ng-model="selectedBall.la_arrow" class="form-control" placeholder="Measurement">
+						<input type=text name="la_arrow"ng-value="selectedBall.la_arrow" ng-model="selectedBall.la_arrow" class="form-control" placeholder="Measurement">
 					</td>
 					<td>
 						<label> Left Finger Oval Cut</label>
-						<input type=text ng-value="selectedBall.lf_oval" ng-model="selectedBall.lf_oval" class="form-control" placeholder="Oval Cut">
+						<input type=text name="lf_oval" ng-value="selectedBall.lf_oval" ng-model="selectedBall.lf_oval" class="form-control" placeholder="Oval Cut">
 					</td>
 						
 				</tr>
 				<tr > 
 					<td>
 						<label> Right Finger Measure </label>
-						<input type=text ng-value="selectedBall.rf_measure" ng-model="selectedBall.rf_measure" class="form-control" placeholder="Measurement">
+						<input type=text name="rf_measure" ng-value="selectedBall.rf_measure" ng-model="selectedBall.rf_measure" class="form-control" placeholder="Measurement">
 					</td>
 					
 					<td>
 						<label> Right Arrow Style </label>
-						<input type=text ng-value="selectedBall.ra_style" ng-model="selectedBall.ra_style" class="form-control" placeholder="UpDown/Horizontal">
+						<input type=text name="ra_style" ng-value="selectedBall.ra_style" ng-model="selectedBall.ra_style" class="form-control" placeholder="Fraction">
 					</td>
 					<td>
 						<label> Right Arrow Measure</label>
-						<input type=text ng-value="selectedBall.ra_arrow" ng-model="selectedBall.ra_arrow" class="form-control" placeholder="Measurement">
+						<input type=text name="ra_arrow" ng-value="selectedBall.ra_arrow" ng-model="selectedBall.ra_arrow" class="form-control" placeholder="Measurement">
 					</td>
 					<td>
 						<label> Right Finger Oval Cut</label>
-						<input type=text ng-value="selectedBall.rf_oval" ng-model="selectedBall.rf_oval" class="form-control" placeholder="Oval Cut">
+						<input type=text name="rf_oval" ng-value="selectedBall.rf_oval" ng-model="selectedBall.rf_oval" class="form-control" placeholder="Oval Cut">
 					</td>
 						
 				</tr>
 						<tr > 
 					<td>
 						<label> Thumb Finger Measure </label>
-						<input type=text ng-value="selectedBall.th_measure" ng-model="selectedBall.th_measure" class="form-control" placeholder="Measurement">
+						<input type=text name="th_measure" ng-value="selectedBall.th_measure" ng-model="selectedBall.th_measure" class="form-control" placeholder="Measurement">
 					</td>
 					
 					<td>
 						<label> Thumb Arrow Style </label>
-						<input type=text ng-value="selectedBall.th_style" ng-model="selectedBall.th_style" class="form-control" placeholder="UpDown/Horizontal">
+						<input type=text name="th_style" ng-value="selectedBall.th_style" ng-model="selectedBall.th_style" class="form-control" placeholder="Fraction">
 					</td>
 					<td>
 						<label> Thumb Arrow Measure</label>
-						<input type=text ng-value="selectedBall.th_arrow" ng-model="selectedBall.th_arrow" class="form-control" placeholder="Measurement">
+						<input type=text name="th_arrow" ng-value="selectedBall.th_arrow" ng-model="selectedBall.th_arrow" class="form-control" placeholder="Measurement">
 					</td>
 					<td>
 						<label> Thumb Finger Oval Cut</label>
-						<input type=text ng-value="selectedBall.th_oval" ng-model="selectedBall.th_oval" class="form-control" placeholder="Oval Cut">
+						<input type=text name="th_oval" ng-value="selectedBall.th_oval" ng-model="selectedBall.th_oval" class="form-control" placeholder="Oval Cut">
 					</td>
 						
 				</tr>
 						<tr > 
 					<td>
 						<label> Finger-Finger Separation </label>
-						<input type=text ng-value="selectedBall.ff_sep" ng-model="selectedBall.ff_sep" class="form-control" placeholder="Measurement">
+						<input type=text name="ff_sep"  ng-value="selectedBall.ff_sep" ng-model="selectedBall.ff_sep" class="form-control" placeholder="Measurement">
 					</td>
 					
 					<td>
 						<label> Left-Thumb Separation </label>
-						<input type=text ng-value="selectedBall.lt_sep" ng-model="selectedBall.lt_sep" class="form-control" placeholder="Measurement">
+						<input type=text name="lt_sep" ng-value="selectedBall.lt_sep" ng-model="selectedBall.lt_sep" class="form-control" placeholder="Fraction">
 					</td>
 					
 					<td>
 						<label> Right-Thumb Separation</label>
-						<input type=text ng-value="selectedBall.rt_sep" ng-model="selectedBall.rt_sep" class="form-control" placeholder="Measurement">
+						<input type=text name="rt_sep" ng-value="selectedBall.rt_sep" ng-model="selectedBall.rt_sep" class="form-control" placeholder="Oval Cut">
 					</td>
 						
 				</tr>
@@ -368,7 +321,7 @@
 						<label> Pin </label>
 						<input type= text  ng-value="selectedBall.pin" ng-model="selectedBall.pin" class="form-control" placeholder="Pin" >
 							
-						</select>
+						</input>
 					</td>
 					
 					<td>
@@ -409,11 +362,13 @@
 						<label> PAP Horizontal</label>
 						<input type=text ng-value="selectedBall.pap_horizontal" ng-model="selectedBall.pap_horizontal" class="form-control" placeholder="PAP Horizontal">
 					</td>
-                    
-                    <td>
-                        <label> PAP UpDown</label>
-                        <input type=text ng-model="selectedBall.pap_updown" class="form-control" placeholder="PAP UpDown">
-                    </td>
+
+					<td>
+						<label> PAP UpDown</label>
+						<input type=text name="pap_updown" ng-value="selectedBall.pap_updown" ng-model="selectedBall.pap_updown" class="form-control" placeholder="PAP Horizontal">
+					</td>
+
+
 						
 				</tr>
 					<tr > 
@@ -441,7 +396,7 @@
 					
 					<td>
 						<label> Left Arrow Style </label>
-						<input type=text ng-value="selectedBall.la_style" ng-model="selectedBall.la_style" class="form-control" placeholder="UpDown/Horizontal">
+						<input type=text ng-value="selectedBall.la_style" ng-model="selectedBall.la_style" class="form-control" placeholder="Fraction">
 					</td>
 					<td>
 						<label> Left Arrow Measure</label>
@@ -461,7 +416,7 @@
 					
 					<td>
 						<label> Right Arrow Style </label>
-						<input type=text ng-value="selectedBall.ra_style" ng-model="selectedBall.ra_style" class="form-control" placeholder="UpDown/Horizontal">
+						<input type=text ng-value="selectedBall.ra_style" ng-model="selectedBall.ra_style" class="form-control" placeholder="Fraction">
 					</td>
 					<td>
 						<label> Right Arrow Measure</label>
@@ -481,7 +436,7 @@
 					
 					<td>
 						<label> Thumb Arrow Style </label>
-						<input type=text ng-value="selectedBall.th_style" ng-model="selectedBall.th_style" class="form-control" placeholder="UpDown/Horizontal">
+						<input type=text ng-value="selectedBall.th_style" ng-model="selectedBall.th_style" class="form-control" placeholder="Fraction">
 					</td>
 					<td>
 						<label> Thumb Arrow Measure</label>
@@ -501,12 +456,12 @@
 					
 					<td>
 						<label> Left-Thumb Separation </label>
-						<input type=text ng-value="selectedBall.lt_sep" ng-model="selectedBall.lt_sep" class="form-control" placeholder="Measurement">
+						<input type=text ng-value="selectedBall.lt_sep" ng-model="selectedBall.lt_sep" class="form-control" placeholder="Fraction">
 					</td>
 					
 					<td>
 						<label> Right-Thumb Separation</label>
-						<input type=text ng-value="selectedBall.rt_sep" ng-model="selectedBall.rt_sep" class="form-control" placeholder="Measurement">
+						<input type=text ng-value="selectedBall.rt_sep" ng-model="selectedBall.rt_sep" class="form-control" placeholder="Oval Cut">
 					</td>
 						
 				</tr>

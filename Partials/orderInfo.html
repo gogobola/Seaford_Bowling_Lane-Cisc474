@@ -1,3 +1,40 @@
+<!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand topnav" href="#">Seaford Bowling</a> 
+				<ul class="nav navbar-nav">
+				<li > <a class="topnav" href="#/balls">Balls</a> </li>
+				<li > <a class="topnav" href="#/customers"> Customers</a> </li>
+				<li class="active"> <a class="topnav" href="#/orders">Orders</a> </li>
+				</ul>
+            </div>
+			
+			
+			
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/logout" >Log Out</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+<br>
+<br>
+
+
 <div class="container">
 	
 	<div class="header">
@@ -70,11 +107,11 @@
 			</td>
 			
 			<td>
-				<button class="btn btn-xs" ng-click="view(order.id_customer)" > <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </button> 
+				<button class="btn btn-xs" ng-click="view(order.id_customer,order.id_ball)" > <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </button> 
 			</td>
 			
 			<td>
-				<button class="btn btn-info btn-xs" ng-click="edit(order.id_customer)" >  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </button> 
+				<button class="btn btn-info btn-xs" ng-click="edit(order.id_customer,order.id_ball)" >  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> </button> 
 			</td>
 			<!--
 			<td>
@@ -88,11 +125,11 @@
 	
 </div>
 
-<div class="model fade" id="OrderModel" tabindex="-1" role="dialog" aria-labelledby="mymodelLabel" aria-hidden="true">  <div class="model-dialog">
-    <div class="model-content">
-      <div class="model-header viewTitle" >
+<div class="model fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="mymodelLabel" aria-hidden="true">  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header viewTitle" >
         <button type="button" class="close" data-dismiss="model" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="model-title">{{title}} - {{selectedOrder.id_customer}}</h4>
+        <h4 class="modal-title">{{title}} - {{selectedOrder.id_customer}}</h4>
       </div>
       <div class="model-body">
         <table class="table">
@@ -107,10 +144,135 @@
 			</tr>
 		</table>
       </div>
-      <div class="model-footer">
-        <button type="button" class="btn btn-default" data-dismiss="model">Close</button>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 
+
+<div class="modal fade" id="orderAddEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header addEditTitle">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title ">{{addEditTitle}}</h4>
+      </div>
+      <div class="modal-body">
+        <!-- ng-if="selectedOrder"    ng-repeat="(key, value) in selectedOrder" -->
+		
+		<div ng-show="selectedOrder" class="form-group">
+			<form id="orderForm">
+			<table class="table" >
+				<tr > 
+					<td>
+						<label> Customer </label>
+						<select class="form-control" name="id_customer">
+							<option ng-repeat="cust in customers" ng-value="cust.idCustomer" ng-model="selectedOrder.id_customer"  > {{cust.name}}</option>
+						</select>
+					</td>
+			 
+					<td>
+						<label> Ball </label>
+						<select name="id_ball"  class="form-control">
+						<option ng-repeat="ball in balls" type=text ng-value="ball.idBall" ng-model="selectedOrder.id_ball" placeholder="Ball">
+						{{ball.idBall}}</option>
+						</select>
+					</td>
+					</td>
+				</tr>
+				
+				<tr > 
+					<td>
+						<label> Date </label>
+						<input name="date" type=date ng-value="selectedOrder.date" ng-model="selectedOrder.date" class="form-control" placeholder="Date">
+					</td>
+					
+					<td>
+						<label> Price </label>
+						<input name="price" type= text  ng-value="selectedOrder.price" ng-model="selectedOrder.price" class="form-control" placeholder="Price" >
+							
+						</select>
+					</td>
+					
+					<td>
+						<label> Completed By </label>
+						<input name="completed_by" type=text ng-value="selectedOrder.completed_by" ng-model="selectedOrder.completed_by" class="form-control" placeholder="Completed By">
+					</td>
+				</tr>
+				
+				
+			</table>
+			</form>
+		</div>
+		
+		
+		<div ng-hide="selectedOrder">
+			<table class="table" >
+				<table class="table" >
+				<tr > 
+				<td>
+						<label> Customer </label>
+						<select class="form-control">
+							<option  ng-value="cust.idCustomer" ng-model="selectedOrder.id_customer"  ng-repeat="cust in customers"> {{cust.name}}</option>
+						</select>
+					</td>
+			 
+					<td>
+						<label> Ball </label>
+						<select class="form-control">
+						<option ng-repeat="ball in balls" type=text ng-value="ball.idBall" ng-model="selectedOrder.id_ball" placeholder="Ball">
+						{{ball.idBall}}</option>
+						</select>
+					</td>
+				</tr>
+				
+				<tr > 
+					<td>
+						<label> Date </label>
+						<input type=date  ng-model="selectedOrder.date" class="form-control" placeholder="Date">
+					</td>
+					
+					<td>
+						<label> Price </label>
+						<input type= text ng-model="selectedOrder.price" class="form-control" placeholder="Price" >
+							
+						</select>
+					</td>
+					
+					<td>
+						<label> Completed By </label>
+						<input type=text ng-model="selectedOrder.completed_by" class="form-control" placeholder="Completed By">
+					</td>
+			</tr>
+				
+			</table>
+		</div>
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" ng-click="addEdit()" class="btn btn-primary">{{addEditBtnText}}</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="orderDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header delTitle">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title mdeletion">{{title}} Deletion - {{delOrderID}}</h4>
+      </div>
+      <div class="modal-body">
+		<p> This action will remove the order <b> {{delOrderID}} </b> from the database. Are you sure?
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" ng-click="remove()" class="btn btn-danger">Delete Order</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,54 @@
+<h1> input data </h1>
+
+<p> <form id="BowlingBallOrder"> 
+<input type="text" id="name" name="name">
+<br>
+<input type="text" id="lefthand" name="lefthand">
+<br>
+<input type= "text" id="leftfinger" name="leftfinger">
+</form>
+
+<div>
+<button id="custom" onclick="nextset(1)">Next</button>
+</div>
+<button id="ballinfo" onclick="nextset(2)">Next</button>
+<div>
+<button id="layout" onclick="submit()">Submit</button>
+</p>
+
+<script>
+window.onload = function() {
+    document.getElementById('name').style.display = 'block';
+    document.getElementById('lefthand').style.display = 'none';
+   document.getElementById('leftfinger').style.display = 'none';
+ document.getElementById('custom').style.display = 'block';
+ document.getElementById('ballinfo').style.display = 'none';
+ document.getElementById('layout').style.display = 'none';
+
+}
+function nextset(x){
+if(x==1){
+ document.getElementById('name').style.display = 'none';
+ document.getElementById('lefthand').style.display = 'block';
+ document.getElementById('leftfinger').style.display = 'none';
+ document.getElementById('custom').style.display = 'none';
+ document.getElementById('ballinfo').style.display = 'block';
+ document.getElementById('layout').style.display = 'none';
+
+}
+else{
+ document.getElementById('name').style.display = 'none';
+ document.getElementById('lefthand').style.display = 'none';
+ document.getElementById('leftfinger').style.display = 'block';
+ document.getElementById('custom').style.display = 'none';
+ document.getElementById('ballinfo').style.display = 'none';
+ document.getElementById('layout').style.display = 'block';
+
+}
+
+}
+function submit(){
+location.href= "ballinfo.html";
+
+}
+</script>

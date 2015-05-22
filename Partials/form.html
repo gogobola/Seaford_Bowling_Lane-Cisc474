@@ -1,0 +1,46 @@
+
+    <form action='database/orderBall.php?func="editOrder"&table=order' method="POST">
+        <table class="table" >
+				<tr > 
+					<td>
+						<label> Customer </label>
+						<select class="form-control" name="id_customer">
+							<OPTION> 2
+						</select>
+					</td>
+			 
+					<td>
+						<label> Ball </label>
+						<select name="id_ball"  class="form-control">
+						<OPTION> 5
+						</select>
+					</td>
+					</td>
+				</tr>
+				
+				<tr > 
+					<td>
+						<label> Date </label>
+						<input name="date" type=date ng-value="selectedOrder.date" ng-model="selectedOrder.date" class="form-control" placeholder="Date">
+					</td>
+					
+					<td>
+						<label> Price </label>
+						<input name="price" type= text  ng-value="selectedOrder.price" ng-model="selectedOrder.price" class="form-control" placeholder="Price" >
+							
+						</select>
+					</td>
+					
+					<td>
+						<label> Completed By </label>
+						<input name="completed_by" type=text ng-value="selectedOrder.completed_by" ng-model="selectedOrder.completed_by" class="form-control" placeholder="Completed By">
+					</td>
+				</tr>
+				
+				
+			
+                    
+                    <tr> <td> <INPUT type=submit value="Send"> </td> </tr>
+        </table>
+        
+</form>

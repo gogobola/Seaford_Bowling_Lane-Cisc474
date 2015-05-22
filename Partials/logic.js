@@ -251,13 +251,14 @@ var bowlingApp = angular.module('bowlingApp', ['ngRoute']);
 		$scope.addEdit = function addEdit(){
 			
 			if($scope.addEditBtnText == "Add Ball") {
+                                             alert("I will insert a new ball");
 				dbBowling.insertBall($scope, "selectedBall", "ball");
 			}
 			else {
-				dbBowling.editBall($scope, "selectedBall", "ball");
+				dbBowling.edit($scope, "selectedBall", "ball");
 			}
 			$('#ballAddEditModal').modal('hide');
-			// location.reload();
+			location.reload();
 		};
 		
 		$scope.searchBall = function searchBall(){
@@ -281,24 +282,20 @@ var bowlingApp = angular.module('bowlingApp', ['ngRoute']);
 
                 $scope.title = "Orders";
                 $scope.orders = [];
-                $scope.customers = [];
-                $scope.balls = [];
 
 		var dbBowling = new bowlingDatabase();
 
         dbBowling.getAllOrders($scope, "orders");
-        dbBowling.getAllBalls($scope, "balls");
-       dbBowling.getAllCustomers($scope, "customers");
 
-	$scope.view = function view(id,id2) {
-        	dbBowling.getOrder($scope, "selectedOrder", id,id2);
+	$scope.view = function view(id) {
+        	dbBowling.getOrder($scope, "selectedOrder", id);
         	$("#orderModal").modal('show');
         }
 
-        $scope.edit = function edit(id,id2){
+        $scope.edit = function edit(id){
 			$scope.addEditTitle = "Edit Order";
 			$scope.addEditBtnText = "Save changes";
-        	dbBowling.getOrder($scope, "selectedOrder", id, id2);
+        	dbBowling.getOrder($scope, "selectedOrder", id);
 			$('#orderAddEditModal').modal('show');
 		};
 		
@@ -322,21 +319,22 @@ var bowlingApp = angular.module('bowlingApp', ['ngRoute']);
 			$scope.addEditTitle = "New Order";
 			$scope.addEditBtnText = "Add Order";
 			$scope.selectedBall = null;
+			//dbBowling.getAllStates($scope, "states");
+			//dbBowling.getCustomer($scope, "selectedCustomer", id);
 			$('#orderAddEditModal').modal('show');
-		
 		};
 		
 		
 		$scope.addEdit = function addEdit(){
 			
 			if($scope.addEditBtnText == "Add Order") {
-				dbBowling.insertOrder($scope, "selectedOrder", "order");
+				dbBowling.insertBall($scope, "selectedOrder", "order");
 			}
 			else {
-				dbBowling.editOrder($scope, "selectedOrder", "order");
+				dbBowling.edit($scope, "selectedOrder", "order");
 			}
 			$('#orderAddEditModal').modal('hide');
-			// location.reload();
+			location.reload();
 		};
 		
 		$scope.searchOrder = function searchOrder(){

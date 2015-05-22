@@ -2,6 +2,7 @@ body{
 	background: fixed no-repeat -webkit-radial-gradient(rgba(161, 222, 240, 0.75), rgba(64, 129, 147, 0.75)), url(http://i.imgur.com/3JZchqt.png), url(http://i.imgur.com/9kxBTzr.jpg);
 }
 
+
 .titleRow{
 	background-color: #bbf;
 }
@@ -26,7 +27,7 @@ body{
 }
 
 .viewTitle{
-	background-color: #000;
+	background-color: #777;
 	color: #fff;
 }
 

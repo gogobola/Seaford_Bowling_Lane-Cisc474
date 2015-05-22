@@ -13,89 +13,34 @@ var bowlingApp = angular.module('bowlingApp', ['ngRoute']);
 					templateUrl: 'Partials/View2.html'
 
 				})
-               .when('/main',
-                     {
-                     controller: 'SimpleController',
-                     templateUrl: 'mainpage.html'
-                     })
-               .when('/customers',
-                     {
-                     controller: 'CustomerController',
-                     templateUrl: 'Partials/customer.html'
-                     
-                     })
-               .when('/balls',
-                     {
-                     controller: 'BallController',
-                     templateUrl: 'Partials/ballinfo.html'
-                     
-                     })
-               .when('/orders',
-                     {
-                     controller: 'OrderController',
-                     templateUrl: 'Partials/orderInfo.html'
-                     
-                     })
-               .otherwise({redirectTo: '/main'});
+			.when('/customers',
+				{
+					controller: 'CustomerController',
+					templateUrl: 'Partials/customer.html'
 
+				})
+			.when('/balls',
+				{
+						controller: 'BallController',
+						templateUrl: 'Partials/ballinfo.html'
+
+				})
+			.when('/orders',
+				{
+						controller: 'OrderController',
+						templateUrl: 'Partials/orderInfo.html'
+
+				})
+			.otherwise({redirectTo: '/view1'});
 		}]);
 		
 			
 
-    bowlingApp.controller('SimpleController', ["$scope", "$location", "$routeParams",
-       function($scope, $location, $routeParams) {
-       
-       $('#login').hide();
-       
-       $('#loginMsg').hide();
-       
-	   /*
-       $('#toggle-login').click(function(){
-                $('#login').toggle();
-                $('#loginMsg').hide();
-        });
-		*/
-		$scope.toggleLogin = function toggleLogin()
-		{
-			$('#login').toggle();
-             $('#loginMsg').hide();
-		}
-       
-       $scope.login = function login(){
-       
-       var user = $scope.email;
-       var pass = $scope.pass;
-       $.ajax({
-              url: 'database/login.php?func="login"&user='+user+'&pass='+pass,
-              type: "GET",
-              data: {"key":"value"},
-              success: function(data){
-             // alert(data);
-              if(data == "1")
-              {
-                $location.path( "/orders" );
-                $scope.$apply();
-              }
-              else
-              {
-              
-                $("#loginMsg").html("Incorrect email or password!");
-                $("#loginMsg").show();
-              
-              }
-              
-              },
-              error: function(){
-              
-                $("#loginMsg").html("Login error");
-                $("#loginMsg").show;
-              }
-              });
-       
-       };
-       
-       }]);
-
+		bowlingApp.controller('SimpleController', ["$scope","$routeParams", 
+		function($scope, $routeParams) {
+		  
+		  
+	  }]);
 		
 		
 	bowlingApp.controller('CustomerController', ["$scope", 
@@ -187,7 +132,7 @@ var bowlingApp = angular.module('bowlingApp', ['ngRoute']);
 		$scope.ballSearchByOptions = [
 										{
 											option : "ID",
-											attr: "name"
+											attr: "id"
 										},
 										{
 											option : "Hand",
@@ -224,7 +169,7 @@ var bowlingApp = angular.module('bowlingApp', ['ngRoute']);
 		
 		
 		$scope.remove = function remove(){
-			dbBowling.remove($scope.delBallID, "ball");
+			dbBowling.remove($scope.delBallID, "customer");
 			$('#ballDelModal').modal('hide');
 			location.reload();
 		};
@@ -254,10 +199,10 @@ var bowlingApp = angular.module('bowlingApp', ['ngRoute']);
 				dbBowling.insertBall($scope, "selectedBall", "ball");
 			}
 			else {
-				dbBowling.editBall($scope, "selectedBall", "ball");
+				dbBowling.edit($scope, "selectedBall", "ball");
 			}
-			$('#ballAddEditModal').modal('hide');
-			// location.reload();
+			$('#customerAddEditModal').modal('hide');
+			location.reload();
 		};
 		
 		$scope.searchBall = function searchBall(){
@@ -267,7 +212,7 @@ var bowlingApp = angular.module('bowlingApp', ['ngRoute']);
 		
 		
 		$('#ballAddEditModal').on('shown.bs.modal', function () {
-		  $("#name").focus()
+		  $("#hand").focus()
 		})
 		
 
@@ -281,73 +226,9 @@ var bowlingApp = angular.module('bowlingApp', ['ngRoute']);
 
                 $scope.title = "Orders";
                 $scope.orders = [];
-                $scope.customers = [];
-                $scope.balls = [];
 
 		var dbBowling = new bowlingDatabase();
 
         dbBowling.getAllOrders($scope, "orders");
-        dbBowling.getAllBalls($scope, "balls");
-       dbBowling.getAllCustomers($scope, "customers");
-
-	$scope.view = function view(id,id2) {
-        	dbBowling.getOrder($scope, "selectedOrder", id,id2);
-        	$("#orderModal").modal('show');
-        }
-
-        $scope.edit = function edit(id,id2){
-			$scope.addEditTitle = "Edit Order";
-			$scope.addEditBtnText = "Save changes";
-        	dbBowling.getOrder($scope, "selectedOrder", id, id2);
-			$('#orderAddEditModal').modal('show');
-		};
-		
-		
-		$scope.remove = function remove(){
-			dbBowling.remove($scope.delOrderID, "order");
-			$('#orderDelModal').modal('hide');
-			location.reload();
-		};
-		
-		$scope.del = function del(id, name){
-			$scope.delOrderID = id;
-			$scope.delId = id;
-			$('#orderDelModal').modal('show');
-			
-		};
-		
-		
-		
-		$scope.newOrder = function newOrder(){
-			$scope.addEditTitle = "New Order";
-			$scope.addEditBtnText = "Add Order";
-			$scope.selectedBall = null;
-			$('#orderAddEditModal').modal('show');
-		
-		};
-		
-		
-		$scope.addEdit = function addEdit(){
-			
-			if($scope.addEditBtnText == "Add Order") {
-				dbBowling.insertOrder($scope, "selectedOrder", "order");
-			}
-			else {
-				dbBowling.editOrder($scope, "selectedOrder", "order");
-			}
-			$('#orderAddEditModal').modal('hide');
-			// location.reload();
-		};
-		
-		$scope.searchOrder = function searchOrder(){
-			dbBowling.search($scope, "orders", "order", $scope.searchText, $scope.searchBy);
-			
-		};
-		
-		
-		$('#orderAddEditModal').on('shown.bs.modal', function () {
-		  $("#name").focus()
-		})
-
 
 	 }]);
